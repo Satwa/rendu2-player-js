@@ -1,0 +1,15 @@
+- Librarie JS
+- Choix des couleurs pour chaque instance
+- Choix de l'image de poster
+- Comme YouTube
+    au hover :
+        - remonter la timeline + les infos  
+    double clic :
+        - ouvrir en full screen
+    - se souvenir en localStorage de l'endroit où on s'est arrêté
+    - Sur mobile, le double tap fait avancer ou reculer de 15sec
+
+
+
+- penser aux will-change
+- améliorer le readme
