@@ -8,10 +8,6 @@
     <link rel="stylesheet" href="app.css">
 </head>
 <body>
-    <!-- <audio src="res/audio.mp3" controls autoplay loop muted preload="metadata">
-        <source src="res/audio.mp3" type="audio/mp3">
-    </audio> -->
-    
     <div class="player js-player">
         <video 
             src="res/video.mp4" 
@@ -21,6 +17,7 @@
         ></video>
         <div class="controller">
             <button class="js-play-state">Play</button>
+            <span class="js-duration"> <span class="js-current-time">00:00</span> / <span class="js-total-time"></span></span>
 
             <div class="volume-bar js-volume-bar">
                 <div class="fill js-volume-bar-fill"></div>

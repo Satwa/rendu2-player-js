@@ -2,10 +2,34 @@ class VideoPlayer{
     constructor(_element){
         this.element = _element
         this.videoElement = _element.querySelector(".js-video")
+        this.currentTimeLabel = this.element.querySelector(".js-current-time")
+
+        this.initialize()
 
         this.setPlayState()
         this.setVolume()
         this.setSeekBar()
+    }
+
+    _convertSeconds(sec){
+        let hrs = Math.floor(sec / 3600)
+        let min = Math.floor((sec - (hrs * 3600)) / 60)
+        let seconds = sec - (hrs * 3600) - (min * 60)
+        seconds = parseInt(Math.round(seconds * 100) / 100)
+
+
+        let result = ""
+        
+        hrs > 0 ? result += (hrs < 10 ? "0" + hrs : hrs) + ":" : "" // if video > 60mn
+        result += min > 0 ? (min < 10 ? "0" + min : min) : "00" // if video > 60s
+        result += ":" + (seconds < 10 ? "0" + seconds : seconds)
+        return result
+    }
+
+    initialize(){
+        this.videoElement.addEventListener("canplay", () => {
+            this.element.querySelector(".js-total-time").innerText = this._convertSeconds(this.videoElement.duration)
+        })
     }
 
     setPlayState(){ // play/pause
@@ -95,6 +119,7 @@ class VideoPlayer{
         this.videoElement.addEventListener("timeupdate", () => {
             const durationRatio = this.videoElement.currentTime / this.videoElement.duration
             seekBarElement.querySelector(".js-seek-bar-fill").style.transform = `scaleX(${durationRatio})`
+            this.currentTimeLabel.innerText = this._convertSeconds(this.videoElement.currentTime)
         })
         
 
@@ -154,13 +179,6 @@ class VideoPlayer{
             
             this.videoElement.currentTime = time
         })
-
-
-        // ++: flèches (gauche droite avancer/reculer || haut bas volume up/down), F (fullscreen), double clic,
-        // ++: preview survol tps
-        // ++: PiP, drag&drop tps & duration
-        // cf player YT
-
     }
 }
 
