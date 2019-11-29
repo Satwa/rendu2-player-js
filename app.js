@@ -297,30 +297,36 @@ class VideoPlayer{
                 case "f":
                     this._toggleFullscreen()
                     break
+                case "p":
+                    this._pipToggleAction()
+                    break
             }
         })
+    }
+
+    _pipToggleAction(){
+        const pipTogglerElement = this.element.querySelector(".js-toggle-pip")
+        
+        pipTogglerElement.disabled = true
+
+        if (this.videoElement !== document.pictureInPictureElement) {
+            this.videoElement.requestPictureInPicture()
+                .then((_e) => {
+                    pipTogglerElement.disabled = false
+                })
+        } else {
+            document.exitPictureInPicture()
+                .then((_e) => {
+                    pipTogglerElement.disabled = false
+                })
+        }
     }
 
     togglePictureInPicture(){
         const pipTogglerElement = this.element.querySelector(".js-toggle-pip")
         pipTogglerElement.addEventListener("click", () => {
             if('pictureInPictureEnabled' in document){
-                pipTogglerElement.addEventListener('click', (_event) => {
-                    pipTogglerElement.disabled = true
-                    
-                    if(this.videoElement !== document.pictureInPictureElement){
-                        this.videoElement.requestPictureInPicture()
-                            .then((_e) => {
-                                pipTogglerElement.disabled = false
-                            })
-                    }else{
-                        document.exitPictureInPicture()
-                            .then((_e) => {
-                                pipTogglerElement.disabled = false
-                            })
-                    }
-                })
-
+                pipTogglerElement.addEventListener('click', this._pipToggleAction.bind(this))
             }else{
                 pipTogglerElement.style.opacity = 0
             }
