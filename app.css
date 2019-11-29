@@ -8,6 +8,7 @@ body{
     align-items: center;
     font-family: sans-serif;
     overflow: hidden;
+    background: #444444;
 }
 video{
     object-fit: cover;
@@ -26,7 +27,7 @@ video.fullscreen{
 .player .seek-bar{
     width: 100%;
     height: 10px;
-    background: #cccccc;
+    background: #444;
     position: relative;
     border-radius: 20px;
     position: absolute;
@@ -36,7 +37,7 @@ video.fullscreen{
 .player .seek-bar .preview-container{
     position: absolute;
     bottom: 150%;
-    background: red;
+    background: #444;
     padding: 5px;
     
     transform: translateX(0) scale(0);
@@ -51,7 +52,7 @@ video.fullscreen{
 }
 
 .player .seek-bar .fill{
-    background: #444;
+    background: #fff;
     position: absolute;
     top: 0;
     left: 0;
@@ -106,7 +107,7 @@ VOLUME BAR
 .player .controller .volume-controller-container .volume-bar{
     height: 120px;
     width: 10px;
-    background: #f00;
+    background: #444;
     position: relative;
     bottom: 10px;
     
@@ -114,7 +115,7 @@ VOLUME BAR
 }
 
 .player .controller .volume-controller-container .volume-bar .fill{
-    background: #444;
+    background: #fff;
     position: absolute;
     top: 0;
     left: 0;
