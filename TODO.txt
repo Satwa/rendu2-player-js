@@ -1,13 +1,6 @@
-- Librarie JS
-- Choix des couleurs pour chaque instance
-- Choix de l'image de poster
-
-
 - Comme YouTube
     - se souvenir en localStorage de l'endroit où on s'est arrêté
     - se souvenir en localStorage du volume
-    - Sur mobile, le double tap fait avancer ou reculer de 15sec
-- Picture in Picture
 
 - penser aux will-change
 - améliorer le readme

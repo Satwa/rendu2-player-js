@@ -13,6 +13,7 @@ class VideoPlayer{
 
         this.listenFullscreen()
         this.addKeyboardControls()
+        this.togglePictureInPicture()
     }
 
     _convertSeconds(sec){
@@ -31,9 +32,14 @@ class VideoPlayer{
     }
 
     initialize(){
-        this.videoElement.addEventListener("canplay", () => {
+        // Solution from: https://stackoverflow.com/questions/21103672/chrome-video-element-canplay-event-not-firing
+        if (this.videoElement.readyState >= this.videoElement.HAVE_FUTURE_DATA) {
             this.element.querySelector(".js-total-time").innerText = this._convertSeconds(this.videoElement.duration)
-        })
+        } else {
+            this.videoElement.addEventListener("canplay", () => {
+                this.element.querySelector(".js-total-time").innerText = this._convertSeconds(this.videoElement.duration)
+            })
+        }
 
         this.videoElement.addEventListener("dblclick", this._toggleFullscreen.bind(this))
     }
@@ -264,7 +270,6 @@ class VideoPlayer{
 
     addKeyboardControls(){
         document.addEventListener("keydown", (_event) => {
-            console.log(_event.key)
             switch(_event.key.toLowerCase()){
                 case " ":
                     this._togglePlayPause()
@@ -292,6 +297,32 @@ class VideoPlayer{
                 case "f":
                     this._toggleFullscreen()
                     break
+            }
+        })
+    }
+
+    togglePictureInPicture(){
+        const pipTogglerElement = this.element.querySelector(".js-toggle-pip")
+        pipTogglerElement.addEventListener("click", () => {
+            if('pictureInPictureEnabled' in document){
+                pipTogglerElement.addEventListener('click', (_event) => {
+                    pipTogglerElement.disabled = true
+                    
+                    if(this.videoElement !== document.pictureInPictureElement){
+                        this.videoElement.requestPictureInPicture()
+                            .then((_e) => {
+                                pipTogglerElement.disabled = false
+                            })
+                    }else{
+                        document.exitPictureInPicture()
+                            .then((_e) => {
+                                pipTogglerElement.disabled = false
+                            })
+                    }
+                })
+
+            }else{
+                pipTogglerElement.style.opacity = 0
             }
         })
     }

@@ -59,7 +59,7 @@ video.fullscreen{
     height: 100%;
     transform-origin: left center;
     transform: scaleX(0);
-    transition: transform .3s ease;
+    transition: transform .4s ease-in;
 
     will-change: transform; 
     
@@ -90,7 +90,7 @@ VOLUME BAR
 .player .controller .volume-controller-container{
     width: 20px;
     position: absolute;
-    right: 20%;
+    right: 90px;
     bottom: calc(100% - 18px);
 }
 
@@ -108,6 +108,7 @@ VOLUME BAR
     width: 10px;
     background: #f00;
     position: relative;
+    bottom: 10px;
     
     border-radius: 20px;
 }
@@ -133,12 +134,31 @@ FULLSCREEN CONTROLLER
 **/
 .fullscreen-controller{
     position: absolute;
-    right: 10%;
+    right: 60px;
     top: 0;
 
     transition: transform .3s;
     will-change: transform;
 }
 .fullscreen-controller:hover{
+    transform: scale(1.2);
+}
+
+/**
+PIP CONTROLLER
+**/
+
+.player .controller .pip-controller{
+    width: 20px;
+    position: absolute;
+    right: 10px;
+
+    transition: transform .3s;
+    will-change: transform, opacity;
+}
+.player .controller .pip-controller:hover{
+    width: 20px;
+    position: absolute;
+    right: 10px;
     transform: scale(1.2);
 }
