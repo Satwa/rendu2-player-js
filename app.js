@@ -38,10 +38,13 @@ class VideoPlayer{
         playStateElement.addEventListener("click" , (_event) => {
             if(this.videoElement.paused){
                 this.videoElement.play()  
-                playStateElement.innerText = "Pause"
+
+                playStateElement.classList.remove("fa-play")
+                playStateElement.classList.add("fa-pause")
             }else{
                 this.videoElement.pause()
-                playStateElement.innerText = "Play"
+                playStateElement.classList.remove("fa-pause")
+                playStateElement.classList.add("fa-play")
             }
         })
 
@@ -50,9 +53,28 @@ class VideoPlayer{
     setVolume(){
         const volumeBarElement = this.element.querySelector(".js-volume-bar")
 
+        let currentVolume = this.videoElement.volume
+
         volumeBarElement.querySelector(".js-volume-bar-fill").style.transform = `scaleY(${this.videoElement.volume})`
         this.videoElement.addEventListener("volumechange", () => {
             volumeBarElement.querySelector(".js-volume-bar-fill").style.transform = `scaleY(${this.videoElement.volume})`
+
+            if (this.videoElement.volume > 0.1) {
+                this.element.querySelector(".js-hardmute").classList.remove("fa-volume-off")
+                this.element.querySelector(".js-hardmute").classList.add("fa-volume-up")
+            } else {
+                this.element.querySelector(".js-hardmute").classList.remove("fa-volume-up")
+                this.element.querySelector(".js-hardmute").classList.add("fa-volume-off")
+            }
+        })
+
+        this.element.querySelector(".js-hardmute").addEventListener("click", () => {
+            if(this.videoElement.volume > 0){
+                currentVolume = this.videoElement.volume
+                this.videoElement.volume = 0
+            }else{
+                this.videoElement.volume = currentVolume
+            }
         })
 
         let active = false,

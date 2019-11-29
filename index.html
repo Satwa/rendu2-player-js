@@ -16,11 +16,17 @@
             controls
         ></video>
         <div class="controller">
-            <button class="js-play-state">Play</button>
+            <i class="fas fa-play js-play-state"></i>
+            <!-- <button class="js-play-state">Play</button> -->
             <span class="js-duration"> <span class="js-current-time">00:00</span> / <span class="js-total-time"></span></span>
 
-            <div class="volume-bar js-volume-bar">
-                <div class="fill js-volume-bar-fill"></div>
+            <div class="volume-controller-container">
+                <div class="volume-controller-hover">
+                    <div class="volume-bar js-volume-bar">
+                        <div class="fill js-volume-bar-fill"></div>
+                    </div>
+                </div>
+                <i class="fas fa-volume-up js-hardmute"></i>
             </div>
 
             <div class="seek-bar js-seek-bar">
@@ -29,6 +35,7 @@
         </div>
     </div>
     
+    <script src="https://kit.fontawesome.com/f0ecfcbaca.js" crossorigin="anonymous"></script>
     <script src="app.js"></script>
 </body>
 </html>
