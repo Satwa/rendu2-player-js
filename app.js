@@ -9,6 +9,8 @@ class VideoPlayer{
         this.setPlayState()
         this.setVolume()
         this.setSeekBar()
+
+        this.listenFullscreen()
     }
 
     _convertSeconds(sec){
@@ -32,8 +34,20 @@ class VideoPlayer{
         })
     }
 
+    _toggleFullscreen(){
+        if(this.videoElement.requestFullscreen){
+            this.videoElement.requestFullscreen()
+        }else if(this.videoElement.webkitRequestFullscreen){
+            this.videoElement.webkitRequestFullscreen()
+        }else if(this.videoElement.mozRequestFullScreen){
+            this.videoElement.mozRequestFullscreen()
+        }
+    }
+
     setPlayState(){ // play/pause
         const playStateElement = this.element.querySelector(".js-play-state")
+
+        this.videoElement.addEventListener("dblclick", this._toggleFullscreen.bind(this))
 
         playStateElement.addEventListener("click" , (_event) => {
             if(this.videoElement.paused){
@@ -47,7 +61,6 @@ class VideoPlayer{
                 playStateElement.classList.add("fa-play")
             }
         })
-
     }
 
     setVolume(){
@@ -201,6 +214,15 @@ class VideoPlayer{
             
             this.videoElement.currentTime = time
         })
+    }
+
+    listenFullscreen(){
+        this.videoElement.addEventListener("fullscreenchange", () => {
+            this.element.querySelector(".js-toggle-fullscreen").classList.toggle("fa-expand")
+            this.element.querySelector(".js-toggle-fullscreen").classList.toggle("fa-cmopress")
+        })
+
+        this.element.querySelector(".js-toggle-fullscreen").addEventListener("click", this._toggleFullscreen.bind(this))
     }
 }
 

@@ -5,8 +5,6 @@
     au hover :
         - remonter la timeline + les infos  
         - afficher preview vidéo
-    double clic :
-        - ouvrir en full screen
     Flèches 
         - (gauche droite avancer/reculer || haut bas volume up/down), F (fullscreen), double clic
     - se souvenir en localStorage de l'endroit où on s'est arrêté
