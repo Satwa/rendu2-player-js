@@ -7,6 +7,7 @@ body{
     justify-content: center;
     align-items: center;
     font-family: sans-serif;
+    overflow: hidden;
 }
 video{
     object-fit: cover;
@@ -30,6 +31,23 @@ video.fullscreen{
     border-radius: 20px;
     position: absolute;
     bottom: 0;
+}
+
+.player .seek-bar .preview-container{
+    position: absolute;
+    bottom: 150%;
+    background: red;
+    padding: 5px;
+    
+    transform: translateX(0) scale(0);
+    will-change: transform;
+}
+
+.player .seek-bar:hover .preview-container{
+    transform: scale(1);
+}
+.player .seek-bar .preview-container video{
+    width: 200px;
 }
 
 .player .seek-bar .fill{

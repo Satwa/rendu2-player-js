@@ -9,6 +9,7 @@ class VideoPlayer{
         this.setPlayState()
         this.setVolume()
         this.setSeekBar()
+        this.previewOnSeekBar()
 
         this.listenFullscreen()
     }
@@ -32,6 +33,8 @@ class VideoPlayer{
         this.videoElement.addEventListener("canplay", () => {
             this.element.querySelector(".js-total-time").innerText = this._convertSeconds(this.videoElement.duration)
         })
+
+        this.videoElement.addEventListener("dblclick", this._toggleFullscreen.bind(this))
     }
 
     _toggleFullscreen(){
@@ -50,25 +53,28 @@ class VideoPlayer{
         }else if(this.element.mozRequestFullScreen){
             this.element.mozRequestFullscreen()
         }
+
     }
 
     setPlayState(){ // play/pause
         const playStateElement = this.element.querySelector(".js-play-state")
 
-        this.videoElement.addEventListener("dblclick", this._toggleFullscreen.bind(this))
-
-        playStateElement.addEventListener("click" , (_event) => {
-            if(this.videoElement.paused){
-                this.videoElement.play()  
+        const _playPause = () => {
+            if (this.videoElement.paused) {
+                this.videoElement.play()
 
                 playStateElement.classList.remove("fa-play")
                 playStateElement.classList.add("fa-pause")
-            }else{
+            } else {
                 this.videoElement.pause()
                 playStateElement.classList.remove("fa-pause")
                 playStateElement.classList.add("fa-play")
             }
-        })
+        }
+
+        this.videoElement.addEventListener("click", _playPause.bind(this))
+
+        playStateElement.addEventListener("click" , _playPause.bind(this))
     }
 
     setVolume(){
@@ -232,6 +238,25 @@ class VideoPlayer{
         })
 
         this.element.querySelector(".js-toggle-fullscreen").addEventListener("click", this._toggleFullscreen.bind(this))
+    }
+
+    previewOnSeekBar(){
+        const seekBarElement = this.element.querySelector(".js-seek-bar")
+        const viewPreviewElement = this.element.querySelector(".js-preview")
+
+        seekBarElement.addEventListener("mouseover", (_event) => {
+            const bounding = seekBarElement.getBoundingClientRect()
+            const ratio    = (_event.clientX - bounding.left) / bounding.width
+            const time     = ratio * this.videoElement.duration
+            
+            viewPreviewElement.parentNode.style.transform = `translateX(${ _event.clientX - bounding.left }px)`
+
+            viewPreviewElement.currentTime = time
+        })
+
+        seekBarElement.addEventListener("mouseleave", (_event) => {
+            viewPreviewElement.parentNode.style.transform = "scale(0)"
+        })
     }
 }
 

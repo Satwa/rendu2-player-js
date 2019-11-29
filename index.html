@@ -11,7 +11,6 @@
     <div class="player js-player">
         <video 
             src="res/video.mp4" 
-            poster="res/poster.png"
             class="js-video"
         ></video>
         <div class="controller">
@@ -29,6 +28,9 @@
             <i class="fas fa-expand fullscreen-controller js-toggle-fullscreen"></i>
  
             <div class="seek-bar js-seek-bar">
+                <div class="preview-container">
+                    <video src="res/video.mp4" class="js-preview"></video>
+                </div>
                 <div class="fill js-seek-bar-fill"></div>
             </div>
         </div>

@@ -2,9 +2,6 @@
 - Choix des couleurs pour chaque instance
 - Choix de l'image de poster
 - Comme YouTube
-    au hover :
-        - remonter la timeline + les infos  
-        - afficher preview vidéo
     Flèches 
         - (gauche droite avancer/reculer || haut bas volume up/down), F (fullscreen), double clic
     - se souvenir en localStorage de l'endroit où on s'est arrêté
@@ -14,3 +11,6 @@
 
 - penser aux will-change
 - améliorer le readme
+
+
+- FIX le preview
