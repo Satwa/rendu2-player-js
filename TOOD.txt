@@ -10,7 +10,6 @@
     - se souvenir en localStorage de l'endroit où on s'est arrêté
     - se souvenir en localStorage du volume
     - Sur mobile, le double tap fait avancer ou reculer de 15sec
-- CSS : centrer le player, le contextualiser
 - Picture in Picture
 
 - penser aux will-change

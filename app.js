@@ -35,12 +35,20 @@ class VideoPlayer{
     }
 
     _toggleFullscreen(){
-        if(this.videoElement.requestFullscreen){
-            this.videoElement.requestFullscreen()
-        }else if(this.videoElement.webkitRequestFullscreen){
-            this.videoElement.webkitRequestFullscreen()
-        }else if(this.videoElement.mozRequestFullScreen){
-            this.videoElement.mozRequestFullscreen()
+        console.log(this.element.innerHeight)
+        console.log(window.innerHeight)
+        console.log("====")
+        if(this.element.offsetHeight == window.innerHeight){
+            document.exitFullscreen()
+
+            return
+        }
+        if(this.element.requestFullscreen){
+            this.element.requestFullscreen()
+        }else if(this.element.webkitRequestFullscreen){
+            this.element.webkitRequestFullscreen()
+        }else if(this.element.mozRequestFullScreen){
+            this.element.mozRequestFullscreen()
         }
     }
 
@@ -217,9 +225,10 @@ class VideoPlayer{
     }
 
     listenFullscreen(){
-        this.videoElement.addEventListener("fullscreenchange", () => {
+        this.element.addEventListener("fullscreenchange", () => {
+            this.videoElement.classList.toggle("fullscreen")
             this.element.querySelector(".js-toggle-fullscreen").classList.toggle("fa-expand")
-            this.element.querySelector(".js-toggle-fullscreen").classList.toggle("fa-cmopress")
+            this.element.querySelector(".js-toggle-fullscreen").classList.toggle("fa-compress")
         })
 
         this.element.querySelector(".js-toggle-fullscreen").addEventListener("click", this._toggleFullscreen.bind(this))
