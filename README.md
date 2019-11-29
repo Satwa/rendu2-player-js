@@ -1,6 +1,7 @@
 # Video player library
 
 Made in vanilla JS, this library can handle multiple instances of video tags to convert it into a custom player.
+The library automatically remembers volume state and current time when leaving page then automatically backs it up.
 
 ### Controls
  - Use Space bar to toggle play/pause
@@ -12,7 +13,7 @@ Made in vanilla JS, this library can handle multiple instances of video tags to 
 
 ### How to use
  - Create a new instance of VideoPlayer with player container CSS selector
- - Add all required elements (look at example code here)
+ - Add all required elements *(look at example code here)*
 
 
 ### How to improve this library?
@@ -22,3 +23,4 @@ Made in vanilla JS, this library can handle multiple instances of video tags to 
  - Fix preview not working correctly
  - Improve mobile support *(such as double tap, to go forward/backward)*
  - Add a big PLAY button on center when not playing
+ - Add a way to disable auto-remember of video state (audio and time)

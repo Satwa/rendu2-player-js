@@ -32,16 +32,32 @@ class VideoPlayer{
     }
 
     initialize(){
-        // Solution from: https://stackoverflow.com/questions/21103672/chrome-video-element-canplay-event-not-firing
+
+        const lastCurrentTime = localStorage.getItem("player_lastTime")
+        const lastVolume = localStorage.getItem("player_lastVolume")
+
+        // canplay not triggered: solution from https://stackoverflow.com/questions/21103672/chrome-video-element-canplay-event-not-firing
         if (this.videoElement.readyState >= this.videoElement.HAVE_FUTURE_DATA) {
             this.element.querySelector(".js-total-time").innerText = this._convertSeconds(this.videoElement.duration)
+            
+            this.videoElement.currentTime = (lastCurrentTime !== null) ? lastCurrentTime : 0
+            this.videoElement.volume      = (lastVolume !== null) ? lastVolume : 0
         } else {
             this.videoElement.addEventListener("canplay", () => {
                 this.element.querySelector(".js-total-time").innerText = this._convertSeconds(this.videoElement.duration)
+                
+                this.videoElement.currentTime = (lastCurrentTime !== null) ? lastCurrentTime : 0
+                this.videoElement.volume = (lastVolume !== null) ? lastVolume : 0
             })
         }
 
         this.videoElement.addEventListener("dblclick", this._toggleFullscreen.bind(this))
+
+        // Remember state when leaving page
+        window.addEventListener("beforeunload", (_event) => {
+            localStorage.setItem("player_lastTime", this.videoElement.currentTime)
+            localStorage.setItem("player_lastVolume", this.videoElement.volume)
+        })
     }
 
     _toggleFullscreen(){
@@ -306,10 +322,9 @@ class VideoPlayer{
 
     _pipToggleAction(){
         const pipTogglerElement = this.element.querySelector(".js-toggle-pip")
-        
         pipTogglerElement.disabled = true
 
-        if (this.videoElement !== document.pictureInPictureElement) {
+        if(this.videoElement !== document.pictureInPictureElement){
             this.videoElement.requestPictureInPicture()
                 .then((_e) => {
                     pipTogglerElement.disabled = false
@@ -322,7 +337,7 @@ class VideoPlayer{
         }
     }
 
-    togglePictureInPicture(){
+    togglePictureInPicture() { // got help from https://dev.to/ananyaneogi/implement-picture-in-picture-on-the-web-17g8
         const pipTogglerElement = this.element.querySelector(".js-toggle-pip")
         pipTogglerElement.addEventListener("click", () => {
             if('pictureInPictureEnabled' in document){
