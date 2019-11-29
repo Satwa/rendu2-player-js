@@ -41,13 +41,13 @@ class VideoPlayer{
             this.element.querySelector(".js-total-time").innerText = this._convertSeconds(this.videoElement.duration)
             
             this.videoElement.currentTime = (lastCurrentTime !== null) ? lastCurrentTime : 0
-            this.videoElement.volume      = (lastVolume !== null) ? lastVolume : 0
+            this.videoElement.volume      = (lastVolume !== null) ? lastVolume : 1
         } else {
             this.videoElement.addEventListener("canplay", () => {
                 this.element.querySelector(".js-total-time").innerText = this._convertSeconds(this.videoElement.duration)
                 
                 this.videoElement.currentTime = (lastCurrentTime !== null) ? lastCurrentTime : 0
-                this.videoElement.volume = (lastVolume !== null) ? lastVolume : 0
+                this.videoElement.volume = (lastVolume !== null) ? lastVolume : 1
             })
         }
 
