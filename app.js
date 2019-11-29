@@ -12,6 +12,7 @@ class VideoPlayer{
         this.previewOnSeekBar()
 
         this.listenFullscreen()
+        this.addKeyboardControls()
     }
 
     _convertSeconds(sec){
@@ -56,25 +57,27 @@ class VideoPlayer{
 
     }
 
+    _togglePlayPause(){
+        const playStateElement = this.element.querySelector(".js-play-state")
+
+        if (this.videoElement.paused) {
+            this.videoElement.play()
+
+            playStateElement.classList.remove("fa-play")
+            playStateElement.classList.add("fa-pause")
+        } else {
+            this.videoElement.pause()
+            playStateElement.classList.remove("fa-pause")
+            playStateElement.classList.add("fa-play")
+        }
+    }
+
     setPlayState(){ // play/pause
         const playStateElement = this.element.querySelector(".js-play-state")
 
-        const _playPause = () => {
-            if (this.videoElement.paused) {
-                this.videoElement.play()
+        this.videoElement.addEventListener("click", this._togglePlayPause.bind(this))
 
-                playStateElement.classList.remove("fa-play")
-                playStateElement.classList.add("fa-pause")
-            } else {
-                this.videoElement.pause()
-                playStateElement.classList.remove("fa-pause")
-                playStateElement.classList.add("fa-play")
-            }
-        }
-
-        this.videoElement.addEventListener("click", _playPause.bind(this))
-
-        playStateElement.addEventListener("click" , _playPause.bind(this))
+        playStateElement.addEventListener("click", this._togglePlayPause.bind(this))
     }
 
     setVolume(){
@@ -256,6 +259,40 @@ class VideoPlayer{
 
         seekBarElement.addEventListener("mouseleave", (_event) => {
             viewPreviewElement.parentNode.style.transform = "scale(0)"
+        })
+    }
+
+    addKeyboardControls(){
+        document.addEventListener("keydown", (_event) => {
+            console.log(_event.key)
+            switch(_event.key.toLowerCase()){
+                case " ":
+                    this._togglePlayPause()
+                    break
+                case "arrowleft":
+                    if(this.videoElement.currentTime <= 5){
+                        this.videoElement.currentTime = 0
+                    }else{
+                        this.videoElement.currentTime -= 5
+                    }
+                    break
+                case "arrowright":
+                    if (this.videoElement.currentTime + 5 >= this.videoElement.duration) {
+                        this.videoElement.currentTime = this.videoElement.duration
+                    } else {
+                        this.videoElement.currentTime += 5
+                    }
+                    break
+                case "arrowup":
+                    this.videoElement.volume = Math.min(this.videoElement.volume + .2, 1)
+                    break
+                case "arrowdown":
+                    this.videoElement.volume = Math.max(this.videoElement.volume - .2, 0)
+                    break
+                case "f":
+                    this._toggleFullscreen()
+                    break
+            }
         })
     }
 }

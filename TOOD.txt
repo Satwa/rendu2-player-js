@@ -1,9 +1,9 @@
 - Librarie JS
 - Choix des couleurs pour chaque instance
 - Choix de l'image de poster
+
+
 - Comme YouTube
-    Flèches 
-        - (gauche droite avancer/reculer || haut bas volume up/down), F (fullscreen), double clic
     - se souvenir en localStorage de l'endroit où on s'est arrêté
     - se souvenir en localStorage du volume
     - Sur mobile, le double tap fait avancer ou reculer de 15sec
